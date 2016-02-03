@@ -1,5 +1,6 @@
 #include <iostream>
 #include "storage/pallet.h"
+#include "storage/CargoStorage.h"
 
 using namespace std;
 using namespace storage;
@@ -143,9 +144,77 @@ int main() {
 
     cout << endl << endl;
 
+    // GetMaxWeight should reflect the actual max weight
     cout << "Test 16: GetMaxWeight should accurately reflect the maximum weight" << endl;
     cout << "Pallet one was declared with a max weight of 30." << endl;
     cout << "Pallet one is reporting a max weight of " << p.GetMaxWeight() << endl;
+
+    cout << endl << endl;
+
+    // CargoStorage must store up to and including 10 items
+    cout << "Test 17: CargoStorage must store up to (and including) 10 items" << endl;
+    CargoStorage csTen;
+    cout << "CargoStorage initialised" << endl;
+
+    for(int i = 0; i < 10; i++) {
+        cout << "Adding one item to CargoStorage!" << endl;
+        Pallet pTmp(i,0);
+        csTen.AddPalletAtPosition(i, pTmp);
+    }
+
+    cout << "Stored items: " << endl;
+    csTen.ListContents();
+
+    cout << endl << endl;
+
+    // AddPalletAtPosition adds a Pallet object at the given position
+    cout << "Test 18: AddPalletAtPosition adds a pallet at the given position " << endl;
+    CargoStorage cs18;
+    Pallet p18(18, 10);
+    cs18.AddPalletAtPosition(0, p18);
+    cout << "Item with ID 18 added at position 0" << endl;
+    cs18.ListContents();
+
+    cout << endl << endl;
+
+    // AddPalletAtPosition will not add a Pallet if one already exists there
+    cout << "Test 19: AddPalletAtPosition will not add a pallet if one is already in the given location" << endl;
+    Pallet p19(19, 10);
+    cs18.AddPalletAtPosition(0, p19);
+    cout << "Attempted to add item with ID 19 at position 0..." << endl;
+    cs18.ListContents();
+
+    cout << endl << endl;
+
+    // AddPalletAtPosition returns true if it adds a pallet, else false
+    cout << "Test 20: AddPalletAtPosition should return true if pallet was added, else return false" << endl;
+    cout << "Adding pallet to position 0 of cs18. This should return false since a pallet already exists there" << endl;
+    if(cs18.AddPalletAtPosition(0, p19) == true) {
+        cout << "AddPalletAtPosition returned true" << endl;
+    } else {
+        cout << "AddPalletAtPosition returned false" << endl;
+    }
+
+    cout << endl << endl;
+
+    // RetrievePalletFromPosition should return the pallet at that position
+    cout << "Test 21: RetrievePalletFromPosition should return the pallet at that position" << endl;
+    cout << "Position 0 of cs18 should should return p18 with ID of 18..." << endl;
+    cout << "ID retrieved from position 0 of cs18... " << cs18.RetrievePalletFromPosition(0).GetId() << endl;
+
+    cout << endl << endl;
+
+    // RetrievePalletFromPosition should remove the pallet from the position
+    cout << "Test 22: RetrievePalletFromPosition should remove the pallet from that position" << endl;
+    cout << "Position 0 of cs18 should should NOT return p18 with ID of 18..." << endl;
+    cout << "ID retrieved from position 0 of cs18... " << cs18.RetrievePalletFromPosition(0).GetId() << endl;
+
+    cout << endl << endl;
+
+    // ListContents displays all pallets in the storage area and their contents
+    cout << "Test 23: ListContents displays all pallets in the storage area and also lists each pallet's contents" << endl;
+    cout << "Listing contents of cs18..." << endl;
+    cs18.ListContents();
 
     cout << endl << endl;
 

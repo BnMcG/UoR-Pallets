@@ -24,6 +24,8 @@ namespace storage {
         int GetCurrentWeight();
         int GetMaxWeight();
         Pallet(int id, int maxWeight);
+        Pallet();
+        int GetId();
 
     protected:
         std::vector<std::string> contents;

@@ -16,6 +16,11 @@ namespace storage {
         Pallet::maxWeight = maxWeight;
     }
 
+    Pallet::Pallet() {
+        Pallet::id = 0;
+        Pallet::maxWeight = 100;
+    }
+
     /**
      * Add an item to the top of the pallet
      */
@@ -77,6 +82,14 @@ namespace storage {
 
     int Pallet::GetMaxWeight() {
         return maxWeight;
+    }
+
+    /**
+     * Get the pallet ID
+     */
+
+    int Pallet::GetId() {
+        return id;
     }
 
 }
