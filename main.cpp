@@ -1,6 +1,7 @@
 #include <iostream>
 #include "storage/pallet.h"
 #include "storage/CargoStorage.h"
+#include "SimpleTruck.h"
 
 using namespace std;
 using namespace storage;
@@ -210,8 +211,12 @@ int main() {
 
     // RetrievePalletFromPosition should remove the pallet from the position
     cout << "Test 22: RetrievePalletFromPosition should remove the pallet from that position" << endl;
-    cout << "Position 0 of cs18 should should NOT return p18 with ID of 18..." << endl;
-    cout << "ID retrieved from position 0 of cs18... " << cs18.RetrievePalletFromPosition(0)->GetId() << endl;
+
+    if(cs18.RetrievePalletFromPosition(0) == nullptr) {
+        cout << "No item at position 0 of storage area cs18!" << endl;
+    } else {
+        cout << "There is an item in position 0 of storage area cs18!" << endl;
+    }
 
     cout << endl << endl;
 
@@ -219,6 +224,52 @@ int main() {
     cout << "Test 23: ListContents displays all pallets in the storage area and also lists each pallet's contents" << endl;
     cout << "Listing contents of csTen..." << endl;
     csTen.ListContents();
+
+    cout << endl << endl;
+
+    // SimpleTruck should be able to pick up a pallet
+    cout << "Test 24: SimpleTruck should be able to pick up a pallet from a position, and the pallet should no longer be in the previous position" << endl;
+
+    // Setup pallet and storage
+    CargoStorage truckStorage;
+
+    // Make 4 pallets
+    Pallet* truckPalletOne = new Pallet(1, 100);
+    Pallet* truckPalletTwo = new Pallet(2, 100);
+    Pallet* truckPalletThree = new Pallet(3, 100);
+    Pallet* truckPalletFour = new Pallet(4, 100);
+
+    // Add 4 pallets to position 0-3 on the storage area
+    truckStorage.AddPalletAtPosition(0, truckPalletOne);
+    truckStorage.AddPalletAtPosition(1, truckPalletTwo);
+    truckStorage.AddPalletAtPosition(2, truckPalletThree);
+    truckStorage.AddPalletAtPosition(3, truckPalletFour);
+
+    // Create a truck
+    SimpleTruck truck;
+
+    cout << "Current items in truck storage area..." << endl;
+    truckStorage.ListContents();
+
+    cout << "Picking up item at position 0 of truck storage area. This should have an ID of 1" << endl;
+    truck.PickUpItem(0, truckStorage);
+    cout << "Listing items now in storage area... There should no longer be an item in position 0" << endl;
+    truckStorage.ListContents();
+    cout << "Placing item back down, in position 8" << endl;
+    bool success = truck.PutDownItem(8, truckStorage);
+    cout << "Listing items now in storage area... Pallet with ID 1 should now be in position 8" << endl;
+    truckStorage.ListContents();
+
+    cout << endl << endl;
+
+    // A truck can't pick up an item that doesn't exist
+    cout << "Test 25: A truck shouldn't pick up an item that doesn't exist" << endl;
+    cout << "Trying to pick up pallet at position 9 of truck storage - there isn't anything here! It should return false!" << endl;
+    if(truck.PickUpItem(9, truckStorage)) {
+        cout << "Picked up item at position 9! Returned true" << endl;
+    } else {
+        cout << "No item to pick up at position 9! Returned false!" << endl;
+    }
 
     cout << endl << endl;
 

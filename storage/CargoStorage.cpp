@@ -32,12 +32,14 @@ namespace storage {
             CargoStorage::pallets[position] = nullptr;
             return tmp;
         } else {
-            return new Pallet(0,0);
+            // Nothing here
+            return nullptr;
         }
     }
 
     void CargoStorage::ListContents() {
         for(int i = 0; i < CargoStorage::CARGO_SIZE; i++) {
+            // Don't output something that doesn't exist
             if(CargoStorage::pallets[i] != nullptr) {
                 std::cout << "Pallet at position " << i << " has ID: " << CargoStorage::pallets[i]->GetId() << std::endl;
             }

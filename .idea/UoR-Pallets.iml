@@ -7,7 +7,9 @@
       <sourceFolder url="file://$MODULE_DIR$/storage/CargoStorage.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/storage/pallet.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SimpleTruck.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SimpleTruck.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
