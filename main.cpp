@@ -157,9 +157,13 @@ int main() {
     cout << "CargoStorage initialised" << endl;
 
     for(int i = 0; i < 10; i++) {
-        cout << "Adding one item to CargoStorage!" << endl;
-        Pallet pTmp(i,0);
-        csTen.AddPalletAtPosition(i, pTmp);
+        cout << "Attempting to add one item to CargoStorage!" << endl;
+        Pallet* pTmp = new Pallet(i,0);
+        if(csTen.AddPalletAtPosition(i, pTmp)) {
+            cout << "Item added!" << endl;
+        } else {
+            cout << "Could not add item!" << endl;
+        }
     }
 
     cout << "Stored items: " << endl;
@@ -170,7 +174,7 @@ int main() {
     // AddPalletAtPosition adds a Pallet object at the given position
     cout << "Test 18: AddPalletAtPosition adds a pallet at the given position " << endl;
     CargoStorage cs18;
-    Pallet p18(18, 10);
+    Pallet* p18 = new Pallet(18, 10);
     cs18.AddPalletAtPosition(0, p18);
     cout << "Item with ID 18 added at position 0" << endl;
     cs18.ListContents();
@@ -179,9 +183,9 @@ int main() {
 
     // AddPalletAtPosition will not add a Pallet if one already exists there
     cout << "Test 19: AddPalletAtPosition will not add a pallet if one is already in the given location" << endl;
-    Pallet p19(19, 10);
+    Pallet* p19 = new Pallet(19, 10);
     cs18.AddPalletAtPosition(0, p19);
-    cout << "Attempted to add item with ID 19 at position 0..." << endl;
+    cout << "Attempted to add item with ID 19 at position 0... This item should NOT have been added!" << endl;
     cs18.ListContents();
 
     cout << endl << endl;
@@ -200,21 +204,21 @@ int main() {
     // RetrievePalletFromPosition should return the pallet at that position
     cout << "Test 21: RetrievePalletFromPosition should return the pallet at that position" << endl;
     cout << "Position 0 of cs18 should should return p18 with ID of 18..." << endl;
-    cout << "ID retrieved from position 0 of cs18... " << cs18.RetrievePalletFromPosition(0).GetId() << endl;
+    cout << "ID retrieved from position 0 of cs18... " << cs18.RetrievePalletFromPosition(0)->GetId() << endl;
 
     cout << endl << endl;
 
     // RetrievePalletFromPosition should remove the pallet from the position
     cout << "Test 22: RetrievePalletFromPosition should remove the pallet from that position" << endl;
     cout << "Position 0 of cs18 should should NOT return p18 with ID of 18..." << endl;
-    cout << "ID retrieved from position 0 of cs18... " << cs18.RetrievePalletFromPosition(0).GetId() << endl;
+    cout << "ID retrieved from position 0 of cs18... " << cs18.RetrievePalletFromPosition(0)->GetId() << endl;
 
     cout << endl << endl;
 
     // ListContents displays all pallets in the storage area and their contents
     cout << "Test 23: ListContents displays all pallets in the storage area and also lists each pallet's contents" << endl;
-    cout << "Listing contents of cs18..." << endl;
-    cs18.ListContents();
+    cout << "Listing contents of csTen..." << endl;
+    csTen.ListContents();
 
     cout << endl << endl;
 

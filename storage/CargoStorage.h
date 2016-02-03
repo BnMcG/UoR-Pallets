@@ -11,11 +11,13 @@ namespace storage {
 
     class CargoStorage {
     public:
-        bool AddPalletAtPosition(int position, Pallet pallet);
-        storage::Pallet RetrievePalletFromPosition(int position);
+        bool AddPalletAtPosition(int position, Pallet *pallet);
+        storage::Pallet* RetrievePalletFromPosition(int position);
         void ListContents();
+        CargoStorage();
     protected:
-        Pallet pallets[10];
+        static const int CARGO_SIZE = 10;
+        Pallet *pallets[CARGO_SIZE];
     };
 }
 
