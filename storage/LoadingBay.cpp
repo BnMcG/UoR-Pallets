@@ -7,7 +7,7 @@
 namespace storage {
 
     void LoadingBay::Arrive() {
-        
+
     }
 
 }
